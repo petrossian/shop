@@ -8,12 +8,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use \Stripe\Plan;
+
 
 class SubscribetionController extends Controller
 {
     public function subscribetion($id){
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
+        // $user->applyBalance(11000*100, 'Premium customer top-up.');
         $product = Product::find($id);
         $productId = $product->stripe_id;
         $p = [];
@@ -31,28 +34,22 @@ class SubscribetionController extends Controller
     }
 
     public function subscribe(Request $request, $id){
-        $user_id = Auth::user()->id;
-        $user = User::find($user_id);
-        $customer_id = $user->stripe_id;
-        $product = Product::find($id);
-        $price_id = $request->input('price_id');
-        $stripe = new \Stripe\StripeClient(
-            'sk_test_51K6E5LE36R3nQNklMcOvFOc6gfpSpjsBOdbWaBQaz2ckZzjbjlkWLM4MXZEZ1fk6eoIlSh5B3XF2s6Hpe40ku8lu00Q3vVPvh4'
-        );
-
-        $validated = $request->validate([
-            'price_id' => 'required',
+        $user = $request->user();
+        \Stripe\Stripe::setApiKey('sk_test_51K6E5LE36R3nQNklMcOvFOc6gfpSpjsBOdbWaBQaz2ckZzjbjlkWLM4MXZEZ1fk6eoIlSh5B3XF2s6Hpe40ku8lu00Q3vVPvh4');
+        $paymentMethod = \Stripe\PaymentMethod::all([
+            'customer' =>  $user->stripe_id,
+            'type' => 'card',
         ]);
-        // $user->applyBalance(-11*100, 'Premium customer top-up.');
-        $stripe->subscriptions->create([
-            'customer' => $customer_id,
-            'items' => [
-              ['price' => $price_id],
-            ],
-          ]);
-        Session::flash('success', 'apeeeeeeeee!!!!, Payment successful!');
+        // dd($paymentMethod);
+        $price_id = $request->input('price_id');
+        $user->newSubscription('default', $price_id)
+        ->create($paymentMethod->data[0]->id,[
+            'email' => $user->email,
+            'amount' => 2000
+        ]);
+
+        Session::flash('success', 'apeeeeeeeee!!!!, Subscription created successfuly!');
         return back();
     }
-
 
 }

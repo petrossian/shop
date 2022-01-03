@@ -45,6 +45,7 @@
                 {{ $product->body }}
             </p>
             <hr>
+            @dump($coupons)
             @if ($coupons->count() != 0)
                 @foreach ($coupons as $coupon)
                     <div>
