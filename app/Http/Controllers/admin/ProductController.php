@@ -104,6 +104,9 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+        if($product == null){
+            return redirect('/admin/home');
+        }
         return view('admin.show', compact('product'));
     }
 

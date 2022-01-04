@@ -88,11 +88,11 @@ class StripeController extends Controller
             ->where('coupon_user.customer_id', $stripeId)
             ->first();
         $coupon_price = $product->price;
-        $balance = (int)str_replace(',', '', ltrim($user->balance(), '-$'));
+        // $balance = (int)str_replace(',', '', ltrim($user->balance(), '-$'));
 
-        if($balance >= $coupon_price){
+        // if($balance >= $coupon_price){
 
-            $user->applyBalance(($price)*100, 'Premium customer top-up.');
+            // $user->applyBalance(($price)*100, 'Premium customer top-up.');
             if($chart == null){
                 $sql = DB::table('charts')->insert([
                     'user_id' => $user_id,
@@ -138,8 +138,8 @@ class StripeController extends Controller
                 Session::flash('success', 'apeeeeeeeee!!!!, Payment successful!');
                 return back();
             }
-        }else{
-            die("Your balance <= 0");
-        }
+        // }else{
+            // die("Your balance <= 0");
+        // }
     }
 }
