@@ -68,17 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        DB::table('roles')->insert(
-            [
-                'name' => 'user'
-            ],[
-                'name' => 'admin'
-            ],
-        );
-        DB::table('role_user')->insert([
-            'user_id' => 1,
-            'role_id' => 2
-        ]);
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
