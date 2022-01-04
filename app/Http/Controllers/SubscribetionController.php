@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use \Stripe\Plan;
+use \Stripe\Charge;
 
 
 class SubscribetionController extends Controller
@@ -34,18 +35,23 @@ class SubscribetionController extends Controller
     }
 
     public function subscribe(Request $request, $id){
-        $user = $request->user();
-        \Stripe\Stripe::setApiKey('sk_test_51K6E5LE36R3nQNklMcOvFOc6gfpSpjsBOdbWaBQaz2ckZzjbjlkWLM4MXZEZ1fk6eoIlSh5B3XF2s6Hpe40ku8lu00Q3vVPvh4');
-        $paymentMethod = \Stripe\PaymentMethod::all([
-            'customer' =>  $user->stripe_id,
-            'type' => 'card',
-        ]);
-        // dd($paymentMethod);
-        $price_id = $request->input('price_id');
-        $user->newSubscription('default', $price_id)
-        ->create($paymentMethod->data[0]->id,[
-            'email' => $user->email,
-            'amount' => 2000
+        \Stripe\Stripe::setApiKey("sk_test_51K6E5LE36R3nQNklMcOvFOc6gfpSpjsBOdbWaBQaz2ckZzjbjlkWLM4MXZEZ1fk6eoIlSh5B3XF2s6Hpe40ku8lu00Q3vVPvh4");
+        $stripe = new \Stripe\StripeClient(
+            'sk_test_51K6E5LE36R3nQNklMcOvFOc6gfpSpjsBOdbWaBQaz2ckZzjbjlkWLM4MXZEZ1fk6eoIlSh5B3XF2s6Hpe40ku8lu00Q3vVPvh4'
+        );
+        $price = $stripe->prices->retrieve(
+            $request->price_id,
+            []
+        );
+        // $stripe->payouts->create([
+        //     'amount' => $price->unit_amount,
+        //     'currency' => 'usd',
+        //   ]);
+        $stripe->subscriptions->create([
+            'customer' => $request->user()->stripe_id,
+            'items' => [
+                ['price' => $request->price_id],
+            ],
         ]);
 
         Session::flash('success', 'apeeeeeeeee!!!!, Subscription created successfuly!');

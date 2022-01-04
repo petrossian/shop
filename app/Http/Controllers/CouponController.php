@@ -24,9 +24,9 @@ class CouponController extends Controller
         $coupon_price = $product->price;
         $coupon_id = $coupon->coupon_id;
         $balance = (int)str_replace(',', '', ltrim($user->balance(), '$'));
-        if($balance >= $coupon_price){
+        if($balance <= $coupon_price){
             $ammount_off = $coupon_price-($coupon_price*$coupon->percent_off/100);
-            $user->applyBalance((1-$ammount_off)*100, 'Premium customer top-up.');
+            $user->applyBalance(($ammount_off)*100, 'Premium customer top-up.');
             $row = DB::table('coupon_user')->insert(
                 [
                     'customer_id' => $customer_id,

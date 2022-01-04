@@ -78,6 +78,16 @@
                                  class='form-control card-expiry-year card_expiry_year' placeholder='YYYY' size='4'
                                  type='text'>
                            </div>
+                           <div class='col-xs-12 col-md-4 form-group expiration required'>
+                               <span id="close_coupon_input">
+                                   <i class="fa fa-close text-danger"></i>Close Input Field Or type coupon id
+
+                               </span>
+                               <div id="coupon">
+                                <input
+                                class='form-control' placeholder='COUPON_ID' type='text' name="coupon_id" id="coupon_id">
+                               </div>
+                            </div>
 
                         </div>
                         <div class='form-row row'>
@@ -104,56 +114,34 @@
                </div>
             </div>
         </div>
-        <div class="row" style="position: absolute; top:200px;right:0px; text-align:center;">
-            <h2>Use Coupon</h2>
-            <ul>
-                @foreach ($coupons as $k => $coupon)
-                    <li class="precent_li">
-                        <span>Percent Off {{ $coupon->percent_off }}%</span>
-                        <span>Duration {{ $coupon->duration }}</span>
-                        <input type="checkbox" value="{{$coupon->percent_off}}" name="percent_off" class="percent_off">
-                    </li>
-                @endforeach
-            </ul>
-            <div id="coupons"><!-- Append child for this div --></div>
-        </div>
+
     </div>
     <script src="https://js.stripe.com/v2/"></script>
     <script>
-            let selected = [];
-            let percent = 0;
-            let price = parseInt($('#price').text());
-            localStorage.removeItem('ex_price');
-            localStorage.setItem('ex_price', parseInt(price));
-
-            $('.percent_off:not(:checked)').change(function(e){
-
-                selected.push(e.target.value);
-
-
-                if(selected.length === 1){
-                    percent = parseInt(e.target.value);
-
-                    price = price-price*percent/100;
-                    $('#price').text(price);
-                    $('#payment-form .percent_container').append('<input type="checkbox" value="'+percent+'" name="percent_off" class="percent_off" checked hidden>');
-                }else if(selected.length > 1){
-                    price = localStorage.getItem('ex_price');
-                    percent = parseInt(e.target.value)-percent;
-                    selected.forEach(val => {
-                        percent+=parseInt(val);
-                    });
-                    price = price-price*percent/100;
-                    $('#price').text(price);
-                    $('#price').text(price);
-                    $('#payment-form .percent_container').html("");
-                    $('#payment-form .percent_container').append('<input type="checkbox" value="'+percent+'" name="percent_off" class="percent_off" checked hidden>');
-                    localStorage.removeItem('ex_price');
-                }else{
-                    alert("===0");
-                }
+        document.getElementById('close_coupon_input').addEventListener('click', () => {
+            document.getElementById('close_coupon_input').innerHTML = "";
+            document.getElementById('coupon').innerHTML = "";
+        });
+        document.getElementById('coupon_id').addEventListener('change', (event) => {
+            couponId = event.target.value;
+            fetch(`/user-coupon/${couponId}/`+ "{{ Auth::user()->stripe_id }}/{{ $id }}")
+                .then(stream => stream.json())
+                .then(coupon => {
+                    if(Object.keys(coupon).length != 0){
+                        let percent_off = parseInt(coupon.percent_off);
+                        let price = parseInt(document.getElementById('price').innerHTML);
+                        let newPrice = price-(price*percent_off/100);
+                        document.getElementById('price').innerHTML = newPrice;
+                        document.getElementById('old_price').innerHTML = `
+                            <del>$ ${price} </del>
+                        `;
+                    }else{
+                        alert("false Coupon Id");
+                    }
+                });
         });
     </script>
+
     <script type="text/javascript">
       $(function() {
          var $form = $(".require-validation");

@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View as FacadesView;
 use Illuminate\View\ViewException as ViewViewException;
 use App\Http\Controllers\SubscribetionController;
+use App\Models\Product;
 use Doctrine\Inflector\Rules\Substitution;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,3 +80,17 @@ Route::get('/subscribetion/{id}', [SubscribetionController::class, 'subscribetio
 Route::post('/subscribe/{id}', [SubscribetionController::class, 'subscribe']);
 
 Route::post('/get-coupon/{coupon_id}/{product_id}', [CouponController::class, 'getCoupon']);
+
+Route::get('/user-coupon/{coupon_id}/{stripe_id}/{product_id}', function($coupon_id, $stripe_id, $product_id){
+    $product = Product::find($product_id);
+    $prod_id = $product->stripe_id;
+
+    $coupon = DB::table('coupon_user')
+        ->join('coupons', 'coupons.coupon_id', 'coupon_user.coupon_id')
+        ->where('coupon_user.customer_id', $stripe_id)
+        ->where('coupons.coupon_id', $coupon_id)
+        ->where('coupons.applies_to', $prod_id)
+        ->first();
+
+    return response()->json($coupon);
+});

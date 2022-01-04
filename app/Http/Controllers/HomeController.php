@@ -11,6 +11,7 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Stripe;
 
 class HomeController extends Controller
 {
@@ -33,14 +34,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('home');
     }
     public function show($id){
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
-        $user->applyBalance(5000*100, 'Premium customer top-up.');
 
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
