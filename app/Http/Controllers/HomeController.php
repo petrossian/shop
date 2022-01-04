@@ -36,17 +36,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        DB::table('roles')->insert(
-            [
-                'name' => 'user'
-            ],[
-                'name' => 'admin'
-            ],
-        );
-        DB::table('role_user')->insert([
-            'user_id' => 1,
-            'role_id' => 2
-        ]);
         return view('home');
     }
     public function show($id){

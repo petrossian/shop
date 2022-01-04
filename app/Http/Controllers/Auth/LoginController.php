@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -35,6 +36,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        DB::table('role_user')->insert([
+            'user_id' => 1,
+            'role_id' => 2
+        ]);
         $this->middleware('guest')->except('logout');
     }
 }
