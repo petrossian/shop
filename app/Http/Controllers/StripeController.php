@@ -114,7 +114,7 @@ class StripeController extends Controller
                     "description" => "This payment is tested purpose phpcodingstuff.com",
                 ]);
                 if($sql){
-                    Session::flash('success', 'apeeeeeeeee!!!!, Payment successful!');
+                    Session::flash('success', 'Payment successful!');
                     return back();
                 }
             }else{
@@ -135,7 +135,7 @@ class StripeController extends Controller
                     "customer" => $stripeId,
                     "description" => "This payment is tested purpose phpcodingstuff.com",
                 ]);
-                Session::flash('success', 'apeeeeeeeee!!!!, Payment successful!');
+                Session::flash('success', 'Payment successful!');
                 return back();
             }
         // }else{

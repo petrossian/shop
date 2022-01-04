@@ -17,7 +17,6 @@ class SubscribetionController extends Controller
     public function subscribetion($id){
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
-        // $user->applyBalance(11000*100, 'Premium customer top-up.');
         $product = Product::find($id);
         $productId = $product->stripe_id;
         $p = [];
@@ -43,10 +42,6 @@ class SubscribetionController extends Controller
             $request->price_id,
             []
         );
-        // $stripe->payouts->create([
-        //     'amount' => $price->unit_amount,
-        //     'currency' => 'usd',
-        //   ]);
         $stripe->subscriptions->create([
             'customer' => $request->user()->stripe_id,
             'items' => [
@@ -54,7 +49,7 @@ class SubscribetionController extends Controller
             ],
         ]);
 
-        Session::flash('success', 'apeeeeeeeee!!!!, Subscription created successfuly!');
+        Session::flash('success', 'Subscription created successfuly!');
         return back();
     }
 
