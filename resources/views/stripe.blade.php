@@ -126,6 +126,7 @@
             couponId = event.target.value;
             fetch(`/user-coupon/${couponId}/`+ "{{ Auth::user()->stripe_id }}/{{ $id }}")
                 .then(stream => stream.json())
+                .then((json)=>{console.log(json)})
                 .then(coupon => {
                     if(Object.keys(coupon).length != 0){
                         let percent_off = parseInt(coupon.percent_off);
