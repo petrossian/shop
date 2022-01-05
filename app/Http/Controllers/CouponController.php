@@ -31,7 +31,7 @@ class CouponController extends Controller
             'duration_in_months' => 3,
         ]);
         DB::table('coupons')->insert([
-            'coupon_id' => $request->coupon_id,
+            'coupon_id' => $coupon->id,
             'currency' => $request->currency,
             'percent_off' => $request->percent_off,
             'duration' => $request->duration,
