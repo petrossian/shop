@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Money\Currency;
 use Session;
 use Stripe\Balance;
 
@@ -15,30 +16,36 @@ use function GuzzleHttp\Promise\inspect;
 
 class CouponController extends Controller
 {
-    public function getCoupon($coupon_id, $product_id){
-        $user_id = Auth::user()->id;
-        $user = User::find($user_id);
-        $customer_id = $user->stripe_id;
-        $coupon = Coupon::find($coupon_id);
-        $product = Product::find($product_id);
-        $coupon_price = $product->price;
-        $coupon_id = $coupon->coupon_id;
-        $balance = (int)str_replace(',', '', ltrim($user->balance(), '$'));
-        if($balance <= $coupon_price){
-            $ammount_off = $coupon_price-($coupon_price*$coupon->percent_off/100);
-            $user->applyBalance(($ammount_off)*100, 'Premium customer top-up.');
-            $row = DB::table('coupon_user')->insert(
-                [
-                    'customer_id' => $customer_id,
-                    'coupon_id' => $coupon_id
-                ]
-            );
-            if($row){
-                Session::flash('success', 'apeeeeeeeee!!!!, you get coupon successfully!');
-                return back();
-            }
-        }else{
-            echo "Balanc@ heriq chi an@m";
-        }
+    public function index(){
+        return view('admin.coupon');
+    }
+    public function createCoupon(Request $request){
+        $stripe = new \Stripe\StripeClient(
+            'sk_test_51K6E5LE36R3nQNklMcOvFOc6gfpSpjsBOdbWaBQaz2ckZzjbjlkWLM4MXZEZ1fk6eoIlSh5B3XF2s6Hpe40ku8lu00Q3vVPvh4'
+        );
+        $coupon = $stripe->coupons->create([
+            'name' => $request->name,
+            'currency' => $request->currency,
+            'percent_off' => $request->percent_off,
+            'duration' => $request->duration,
+            'duration_in_months' => 3,
+        ]);
+        DB::table('coupons')->insert([
+            'coupon_id' => $request->coupon_id,
+            'currency' => $request->currency,
+            'percent_off' => $request->percent_off,
+            'duration' => $request->duration,
+            'applies_to' => $request->applies_to
+        ]);
+        return back();
+    }
+    public function applyCoupon(Request $request){
+        $customer_id = $request->customer_id;
+        $coupon_id = $request->coupon_id;
+        DB::table('coupon_user')->insert([
+            'customer_id' => $customer_id,
+            'coupon_id' => $coupon_id,
+        ]);
+        return back();
     }
 }

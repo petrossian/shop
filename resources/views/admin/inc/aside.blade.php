@@ -25,6 +25,16 @@
                                 <a class="nav-link" href="/admin/products/create">Create Product</a>
                             </nav>
                         </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseProduct1" aria-expanded="false" aria-controls="pagesCollapseError">
+                            Coupon
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseProduct1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/admin/coupon">Create Coupon</a>
+                                <a class="nav-link" href="/admin/coupon#applie">Applie Coupon</a>
+                            </nav>
+                        </div>
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Addons</div>

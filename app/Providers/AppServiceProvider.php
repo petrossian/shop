@@ -41,9 +41,6 @@ class AppServiceProvider extends ServiceProvider
                 $user_id = Auth::user()->id;
                 self::$user = User::find($user_id);
                 $view->with('categories', Category::all());
-                $balance = self::$user->balance();
-                $balance = ltrim($balance, '-');
-                $view->with('balance', $balance);
             }else{
                 $view->with('categories', Category::all());
             }

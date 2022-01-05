@@ -55,9 +55,6 @@
 						@endIf
 					</ul>
 					<ul class="header-links pull-right">
-                        @if(Auth::check())
-						    <li><a href="#">{{ $balance }} USD</a></li>
-                        @endif
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -186,12 +183,10 @@
 					<!-- NAV -->
 					<ul class="nav">
 						<li class="active"><a href="/">Home</a></li>
-						<li><a href="#">Hot Deals</a></li>
 						<li><a href="/categories">Categories</a></li>
 						<li><a href="/categories/laptops">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
+						<li><a href="/categories/phones">Phones</a></li>
+						<li><a href="/categories/planchets">Planchets</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>

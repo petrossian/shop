@@ -42,6 +42,7 @@ class SubscribetionController extends Controller
             $request->price_id,
             []
         );
+        //
         $stripe->subscriptions->create([
             'customer' => $request->user()->stripe_id,
             'items' => [
@@ -49,7 +50,7 @@ class SubscribetionController extends Controller
             ],
         ]);
 
-        Session::flash('success', 'Subscription created successfuly!');
+        Session::flash('success', 'apeeeeeeeee!!!!, Subscription created successfuly!');
         return back();
     }
 

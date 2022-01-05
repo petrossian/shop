@@ -36,10 +36,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        DB::table('role_user')->insert([
-            'user_id' => 1,
-            'role_id' => 2
-        ]);
         $this->middleware('guest')->except('logout');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        @foreach ($phones as $phone)
+        @foreach ($planchets as $planchet)
         <div class="row d-flex justify-content-center mh-100">
 
             <div class="card col-6 m-3 mt-5" style="display: table;height:100px;">
@@ -14,12 +14,12 @@
                                 z-index:9999;
                             ">
                     <div class="carousel-inner">
-                        @if(isset($phone->images[0]))
+                        @if(isset($planchet->images[0]))
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="/img/{{$phone->images[0]->file}}" alt="First slide">
+                            <img class="d-block w-100" src="/img/{{$planchet->images[0]->file}}" alt="First slide">
                         </div>
                         @endif
-                        @foreach($phone->images as $k => $image)
+                        @foreach($planchet->images as $k => $image)
                             @if($k != 0)
                             <div class="carousel-item">
                                 <img class="d-block w-100" src="/img/{{$image->file}}" alt="Second slide">
@@ -40,12 +40,12 @@
 
             </div>
             <div class="col-4 mt-5 offset-1">
-                <h5 class="card-title">{{ $phone->title }}</h5>
+                <h5 class="card-title">{{ $planchet->title }}</h5>
                 <p class="card-text">
-                    {{ $phone->body }}
+                    {{ $planchet->body }}
                 </p>
                 <br>
-                <a href="/show/{{ $phone->id }}" class="text-info border border-primary p-5 mt-5 d-block w-100">
+                <a href="/show/{{ $planchet->id }}" class="text-info border border-primary p-5 mt-5 d-block w-100">
                     Quick View
                     <i class="fa fa-arrow-right"></i>
                 </a>

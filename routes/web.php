@@ -53,7 +53,7 @@ Route::post('/search', [SearchController::class, 'search']);
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/categories/laptops', [CategoriesController::class, 'laptops']);
 Route::get('/categories/phones', [CategoriesController::class, 'phones']);
-Route::get('/categories/cameras', [CategoriesController::class, 'cameras']);
+Route::get('/categories/planchets', [CategoriesController::class, 'planchets']);
 Route::get('/wishlist', [WishlistsController::class, 'index']);
 
 Route::post('/like/{id}', [App\Http\Controllers\LikeController::class, 'index']);
@@ -67,8 +67,11 @@ Route::get('/admin/charts', function (){
     return view('admin.charts');
 });
 
+Route::get('/admin/coupon', [CouponController::class, 'index']);
+Route::post('/admin/create-coupon', [CouponController::class, 'createCoupon']);
+Route::post('/admin/apply-coupon', [CouponController::class, 'applyCoupon']);
+
 Route::get('stripe/{product_id}', [StripeController::class, 'stripe']);
-// Route::post('stripe/{product_id}', [StripeController::class, 'stripePost'])->name('stripe.post');
 Route::post('checkout/{product_id}', [StripeController::class, 'checkout']);
 
 

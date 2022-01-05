@@ -36,16 +36,16 @@ class CategoriesController extends Controller
         }
         return view('phones', compact('phones'));
     }
-    public function cameras(){
-        $cameras = [];
+    public function planchets(){
+        $planchets = [];
         $products = Product::all();
         foreach($products as $product){
             foreach($product->categories as $category){
                 if($category->id == 3){
-                    $cameras[] = $product;
+                    $planchets[] = $product;
                 }
             }
         }
-       return view('cameras', compact('cameras'));
+       return view('planchets', compact('planchets'));
     }
 }

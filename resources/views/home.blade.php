@@ -25,7 +25,7 @@
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
-								<img src="/img/phone.png" alt="">
+								<img src="/img/samsung.jpg" alt="">
 							</div>
 							<div class="shop-body">
 								<h3>Phone<br>Collection</h3>
@@ -39,11 +39,11 @@
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
-								<img src="/img/95.jpg" alt="">
+								<img src="/img/64.jpg" alt="">
 							</div>
 							<div class="shop-body">
-								<h3>Cameras<br>Collection</h3>
-								<a href="/categories/cameras" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<h3>Planchet<br>Collection</h3>
+								<a href="/categories/planchets" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>

@@ -18,7 +18,7 @@
                                         <th>Title</th>
                                         <th>Body</th>
                                         <th>Price</th>
-                                        <th>File</th>
+                                        <th>Stripe Id</th>
                                         <th>Category</th>
                                         <th class="text-info">Tools</th>
                                     </tr>
@@ -29,7 +29,7 @@
                                         <th>Title</th>
                                         <th>Body</th>
                                         <th>Price</th>
-                                        <th>File</th>
+                                        <th>Stripe Id</th>
                                         <th>Category</th>
                                     </tr>
                                 </tfoot>
@@ -40,13 +40,13 @@
                                             <td>{{$product->title}}</td>
                                             <td>{{$product->body}}</td>
                                             <td>{{$product->price}}</td>
-                                            <td>{{$product->file}}</td>
+                                            <td>{{$product->stripe_id}}</td>
                                             <td>
                                                 @foreach($product->categories as $category)
                                                     <span>{{ $category->category }}</span>
                                                 @endforeach
                                             </td>
-                                            
+
                                             <td>
                                                 <a href="/admin/products/{{$product->id}}">
                                                     <i class="fa fa-tools"></i>

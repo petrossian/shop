@@ -71,7 +71,6 @@
                     <form action="/like/{{$product->id}}" method="post">
                         @csrf
                         <button type="submit" style="border:none;">+<i class="fa fa-heart-o"></i></button>
-
                     </form>
                     @else
                     <form action="/unlike/{{$product->id}}" method="post">
