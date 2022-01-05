@@ -62,29 +62,7 @@
                     </div>
                 @endforeach
             @else
-                @foreach ($all_coupons as $coupon)
-                @dump($coupon->id)
-                    <h4 class="text-center text-success d-flex justify-content-around">
-                        Get Coupon BY
-                        ${{$product->price*($coupon->percent_off/2)/100}}
-                        <form action="/get-coupon/{{ $coupon->id }}/{{ $product->id }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-success" style="background-color:white;color:green;">+</button>
-                        </form>
-                    </h4>
-                    <div>
-                        <b>Price</b> <del>${{$product->price}}</del>  <b class="bg-warning text-success p-1 rounded">${{$product->price - $product->price*$coupon->percent_off/100}}</b>
-                    </div>
-                    <div>
-                        <b>Currency</b> {{$coupon->currency}}
-                    </div>
-                    <div class="text-right">
-                        <b>Percent Off </b>-{{$coupon->percent_off}} %
-                    </div>
-                    <div class="text-right">
-                        <b>Duration </b> <span class="text-success" style="font-weight:bolder;">{{$coupon->duration}}</span>
-                    </div>
-                @endforeach
+                <p>No coupon</p>
             @endif
             <br><br>
             <footer class="card-footer d-flex justify-content-around">
