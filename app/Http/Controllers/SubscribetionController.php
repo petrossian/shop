@@ -7,6 +7,7 @@ use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Session;
 use \Stripe\Plan;
 use \Stripe\Charge;
@@ -42,7 +43,12 @@ class SubscribetionController extends Controller
             $request->price_id,
             []
         );
-        //
+        Charge::create ([
+            "amount" => $price->unit_amount,
+            "currency" => "usd",
+            "customer" => Auth::user()->stripe_id,
+            "description" => "Subscription Payment",
+        ]);
         $stripe->subscriptions->create([
             'customer' => $request->user()->stripe_id,
             'items' => [
