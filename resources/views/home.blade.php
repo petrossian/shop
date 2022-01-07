@@ -235,7 +235,7 @@
                                                             <i class="fa fa-shopping-cart"></i></i>
                                                             <sub>{{ $product->sail_count }}</sub>
                                                         </a>
-                                                        <a href="/show/{{ $new_product->id }}" class="quick-view"><i class="fa fa-eye"></i></a>
+                                                        <a href="/show/{{ $product->id }}" class="quick-view"><i class="fa fa-eye"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
