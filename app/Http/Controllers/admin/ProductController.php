@@ -134,7 +134,8 @@ class ProductController extends Controller
         $update = DB::table('products')->where('id', $id)->update([
             'title'=>$request->input('title'),
             'body'=>$request->input('body'),
-            'price'=>$request->input('price')
+            'price'=>$request->input('price'),
+            'updated_at'=>new \DateTime()
         ]);
         $update = DB::table('category_product')->where('product_id', $id)->update([
             'category_id'=>$request->input('category_id'),

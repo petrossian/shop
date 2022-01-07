@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Validator;
+
 class LoginController extends Controller
 {
     /*
@@ -42,10 +44,12 @@ class LoginController extends Controller
 
     }
 
-    public function logIn(Request $request){
-        $this->validate($request, [
-            'email'       => 'required|max:255|email',
-            'password'    => 'required|confirmed',
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
 }

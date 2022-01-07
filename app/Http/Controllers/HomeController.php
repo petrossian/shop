@@ -34,10 +34,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public static function likeCount($product){
+        $wishlist = $product->wishlists->where('product_id', $product->id)->count();
+        return $wishlist;
+    }
+    public static function isLiked($product_id){
+        $wishlist = Wishlist::where('product_id', $product_id)->where('user_id', Auth::user()->id)->get()->count();
+        if($wishlist != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function index(Request $request)
     {
-        return view('home');
+        $new_products = Product::all()->sortBy('created_at')->take(3);
+        return view('home', compact('new_products'));
     }
+
     public function show($id){
         $user_id = Auth::user()->id;
         $user = User::find($user_id);

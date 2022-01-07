@@ -35,10 +35,6 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Route::get('/admin/home', [AdminController::class, 'home']);
 Route::get('/admin/products-table', [AdminController::class, 'productsTable']);
 Route::get('/admin/users-table', [AdminController::class, 'usersTable']);
@@ -46,6 +42,7 @@ Route::get('/admin/delete-user/{id}', [AdminController::class, 'deleteUser']);
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/show/{id}', [App\Http\Controllers\HomeController::class, 'show']);
 Route::post('/search', [SearchController::class, 'search']);
