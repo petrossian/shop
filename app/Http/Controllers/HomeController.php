@@ -49,7 +49,22 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $new_products = Product::all()->sortByDesc('created_at')->take(3);
-        return view('home', compact('new_products'));
+        $products = Product::all();
+        $top_sailing = [];
+        foreach($products as $product){
+            $count = 0;
+            if($product->charts->isEmpty()){
+                $product->sail_count = 0;
+            }else{
+                foreach($product->charts as $chart){
+                    $count += $chart->count;
+                    $product->sail_count = $count;
+                }
+            }
+            $top_sailing[] = $product;
+        }
+        $top_products = collect($top_sailing)->sortByDesc('sail_count')->take(3);
+        return view('home', compact('new_products', 'top_products'));
     }
 
     public function show($id){
