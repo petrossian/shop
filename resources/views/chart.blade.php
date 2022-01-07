@@ -2,6 +2,7 @@
 @section('content')
 <div class="container">
         <div class="row d-flex justify-content-center">
+            @dd($charts)
             @foreach($charts as $key => $chart)
             <div class="card m-5" id="{{$key}}">
                 <figure>
@@ -38,7 +39,6 @@
                 </figure>
                 <section class="details">
                   <div class="min-details">
-                      @dump($chart->product)
                     <h1>{{ $chart->product->title }}</h1>
                     <h1 class="price">${{ $chart->product->price }}</h1>
                   </div>
