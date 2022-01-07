@@ -33,6 +33,7 @@ class ChartController extends Controller
                 $charts[] = $chart;
             }
         }
+        dd($charts);
         return view('chart', compact('charts'));
     }
 
