@@ -48,7 +48,7 @@ class HomeController extends Controller
     }
     public function index(Request $request)
     {
-        $new_products = Product::all()->sortBy('created_at')->take(3);
+        $new_products = Product::all()->sortByDesc('created_at')->take(3);
         return view('home', compact('new_products'));
     }
 

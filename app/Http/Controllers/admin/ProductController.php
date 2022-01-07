@@ -69,7 +69,7 @@ class ProductController extends Controller
             'body'=>$request->input('body'),
             'price'=>$request->input('price'),
             'stripe_id'=>$stripe_id
-        ]);
+        ], true);
         foreach($request->file as $file){
             if($file->move(public_path('\img'), $file->getClientOriginalName())){
 
