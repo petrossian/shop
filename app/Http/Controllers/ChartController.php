@@ -31,10 +31,8 @@ class ChartController extends Controller
         foreach($ch as $k=> $chart){
             if($chart->user_id == $user_id){
                 $charts[] = $chart;
-                dump($chart->product);
             }
         }
-        dd($charts);
         return view('chart', compact('charts'));
     }
 
