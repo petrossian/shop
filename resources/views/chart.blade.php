@@ -38,6 +38,7 @@
                 </figure>
                 <section class="details">
                   <div class="min-details">
+                      @dump($chart->product)
                     <h1>{{ $chart->product->title }}</h1>
                     <h1 class="price">${{ $chart->product->price }}</h1>
                   </div>
