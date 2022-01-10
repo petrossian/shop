@@ -35,17 +35,25 @@ class CouponController extends Controller
             'currency' => $request->currency,
             'percent_off' => $request->percent_off,
             'duration' => $request->duration,
-            'applies_to' => $request->applies_to
         ]);
         return back();
     }
     public function applyCoupon(Request $request){
         $customer_id = $request->customer_id;
+        $product_id = $request->product_id;
         $coupon_id = $request->coupon_id;
-        DB::table('coupon_user')->insert([
-            'customer_id' => $customer_id,
-            'coupon_id' => $coupon_id,
-        ]);
+        if($customer_id != null){
+            DB::table('coupon_user')->insert([
+                'customer_id' => $customer_id,
+                'coupon_id' => $coupon_id,
+            ]);
+        }elseif($product_id != null){
+            DB::table('coupon_product')->insert([
+                'product_id' => $product_id,
+                'coupon_id' => $coupon_id,
+            ]);
+        }
+
         return back();
     }
 }

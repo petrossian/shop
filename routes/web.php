@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PercentOffController;
 // use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StripeController;
@@ -59,6 +60,8 @@ Route::post('/unlike/{id}', [App\Http\Controllers\LikeController::class, 'unlike
 Route::get('/chart', [ChartController::class, 'chart']);
 Route::post('/add-to-chart/{id}', [ChartController::class, 'addToChart']);
 
+Route::get('/percent-off', [PercentOffController::class, 'index']);
+
 Route::resource('/admin/products', ProductController::class);
 Route::get('/admin/charts', function (){
     return view('admin.charts');
@@ -67,6 +70,7 @@ Route::get('/admin/charts', function (){
 Route::get('/admin/coupon', [CouponController::class, 'index']);
 Route::post('/admin/create-coupon', [CouponController::class, 'createCoupon']);
 Route::post('/admin/apply-coupon', [CouponController::class, 'applyCoupon']);
+Route::post('/admin/create_plan', [CouponController::class, 'createPlan']);
 
 Route::get('stripe/{product_id}', [StripeController::class, 'stripe']);
 Route::post('checkout/{product_id}', [StripeController::class, 'checkout']);
@@ -89,7 +93,6 @@ Route::get('/user-coupon/{coupon_id}/{stripe_id}/{product_id}', function($coupon
         ->join('coupons', 'coupons.coupon_id', 'coupon_user.coupon_id')
         ->where('coupon_user.customer_id', $stripe_id)
         ->where('coupons.coupon_id', $coupon_id)
-        ->where('coupons.applies_to', $prod_id)
         ->first();
 
     return response()->json($coupon);

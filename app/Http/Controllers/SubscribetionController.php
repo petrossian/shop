@@ -56,7 +56,7 @@ class SubscribetionController extends Controller
             ],
         ]);
 
-        Session::flash('success', 'apeeeeeeeee!!!!, Subscription created successfuly!');
+        Session::flash('success', 'Subscription created successfuly!');
         return back();
     }
 

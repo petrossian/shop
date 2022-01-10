@@ -17,6 +17,7 @@ class CreateChartsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('product_id');
+            $table->integer('count')->default(1);
             $table->timestamps();
         });
     }

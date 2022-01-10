@@ -15,8 +15,8 @@ class CreateCouponUserTable extends Migration
     {
         Schema::create('coupon_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->foreignId('coupon_id')->nullable();
+            $table->string('customer_id')->nullable();
+            $table->string('coupon_id')->nullable();
             $table->timestamps();
         });
     }

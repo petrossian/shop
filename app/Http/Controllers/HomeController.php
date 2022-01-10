@@ -75,6 +75,7 @@ class HomeController extends Controller
         $user = User::find($user_id);
         $customer_id = $user->stripe_id;
         $product = Product::find($id);
+        $price = $product->price;
         $product_id = $product->id;
         if(Chart::where('product_id', $id)->first() == null){
             $charts_count = 0;
@@ -83,9 +84,7 @@ class HomeController extends Controller
         }
         $coupons = DB::table('coupon_user')
             ->join('coupons', 'coupons.coupon_id', 'coupon_user.coupon_id')
-            ->join('products', 'coupons.applies_to', 'products.stripe_id')
             ->where('coupon_user.customer_id', $customer_id)
-            ->where('products.id', $product_id)
             ->get();
         $all_coupons = DB::table('coupons')
             ->get();
@@ -97,6 +96,6 @@ class HomeController extends Controller
         if($wishlist != null){
             $isLiked = true;
         }
-        return view('show', compact('product', 'count', 'isLiked', 'coupons', 'charts_count', 'all_coupons'));
+        return view('show', compact('product', 'price', 'count', 'isLiked', 'coupons', 'charts_count', 'all_coupons'));
     }
 }

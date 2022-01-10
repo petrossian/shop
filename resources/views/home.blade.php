@@ -167,7 +167,7 @@
 							</ul>
 							<h2 class="text-uppercase">hot deal this week</h2>
 							<p>New Collection Up to 50% OFF</p>
-							<a class="primary-btn cta-btn" href="#">Shop now</a>
+							<a class="primary-btn cta-btn" href="/percent-off">Shop now</a>
 						</div>
 					</div>
 				</div>
@@ -200,6 +200,7 @@
 								<div id="tab2" class="tab-pane fade in active">
 									<div class="products-slick" data-nav="#slick-nav-2">
                                         @foreach ($top_products as $product)
+
                                             <!-- product -->
                                             <div class="product">
                                                 <div class="product-img">
@@ -218,20 +219,20 @@
                                                     <h3 class="product-name"><a href="#">{{ $product->title }}</a></h3>
                                                     <h4 class="product-price">${{ $product->price }}</h4>
                                                     <div class="product-btns d-flex justify-content-around">
-                                                        @if(!\App\HTTP\Controllers\HomeController::isLiked($new_product->id))
-                                                            <form action="/like/{{$new_product->id}}" method="post">
+                                                        @if(!\App\HTTP\Controllers\HomeController::isLiked($product->id))
+                                                            <form action="/like/{{$product->id}}" method="post">
                                                                 @csrf
                                                                 <button type="submit" style="border:none;">+<i class="fa fa-heart-o"></i></button>
-                                                                <sub class="text-danger"><b>{{ \App\HTTP\Controllers\HomeController::likeCount($new_product) }}</b></sub>
+                                                                <sub class="text-danger"><b>{{ \App\HTTP\Controllers\HomeController::likeCount($product) }}</b></sub>
                                                             </form>
                                                         @else
-                                                            <form action="/unlike/{{$new_product->id}}" method="post">
+                                                            <form action="/unlike/{{$product->id}}" method="post">
                                                                 @csrf
                                                                 <button type="submit" style="border:none;">-<i class="fa fa-heart-o"></i></button>
-                                                                <sub class="text-danger"><b>{{ \App\HTTP\Controllers\HomeController::likeCount($new_product) }}</b></sub>
+                                                                <sub class="text-danger"><b>{{ \App\HTTP\Controllers\HomeController::likeCount($product) }}</b></sub>
                                                             </form>
                                                         @endif
-                                                        <a href="/stripe/{{ $new_product->id }}" class="add-to-chart">
+                                                        <a href="/stripe/{{ $product->id }}" class="add-to-chart">
                                                             <i class="fa fa-shopping-cart"></i></i>
                                                             <sub>{{ $product->sail_count }}</sub>
                                                         </a>

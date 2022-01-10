@@ -81,7 +81,6 @@
                            <div class='col-xs-12 col-md-4 form-group expiration required'>
                                <span id="close_coupon_input">
                                    <i class="fa fa-close text-danger"></i>Close Input Field Or type coupon id
-
                                </span>
                                <div id="coupon">
                                 <input
@@ -122,7 +121,7 @@
             document.getElementById('close_coupon_input').innerHTML = "";
             document.getElementById('coupon').innerHTML = "";
         });
-        document.getElementById('coupon_id').addEventListener('change', (event) => {
+        document.getElementById('coupon_id').addEventListener('input', (event) => {
             couponId = event.target.value;
             fetch(`/user-coupon/${couponId}/`+ "{{ Auth::user()->stripe_id }}/{{ $id }}")
                 .then(stream => stream.json())

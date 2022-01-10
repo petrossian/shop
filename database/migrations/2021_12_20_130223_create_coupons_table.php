@@ -15,12 +15,12 @@ class CreateCouponsTable extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->string('coupon_id')->nullable();
             $table->string('currency')->nullable();
             $table->string('percent_off')->nullable(); // zexchi tokos@
             $table->string('duration')->nullable(); // tevoxutyun@
             $table->string('max_redemptions')->nullable(); //qani angam kara ogtagorcvi et coupon@
             $table->string('redeem_by')->nullable();  // sahmanapakvum a en producteri qanak@, voronq kogtagorcen et coupon@
-            $table->string('applies_to')->nullable();
             $table->timestamps();
         });
     }

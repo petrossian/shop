@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
         <div class="row d-flex justify-content-center mh-100">
 
         <div class="card col-6 m-3 mt-5" style="display: table;height:100px;">
@@ -49,7 +48,7 @@
             @if ($coupons->count() != 0)
                 @foreach ($coupons as $coupon)
                     <div>
-                        <b>Price</b> <del>${{$coupon->price}}</del><b class="bg-warning text-success p-1 rounded">${{(int)$coupon->price - (int)$coupon->percent_off*(int)$coupon->price/100}}</b>
+                        <b>Price</b> <del>${{$price}}</del><b class="bg-warning text-success p-1 rounded">${{(int)$price - (int)$coupon->percent_off*(int)$price/100}}</b>
                     </div>
                     <div>
                         <b>Currency</b> {{$coupon->currency}}

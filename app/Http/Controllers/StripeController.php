@@ -41,7 +41,6 @@ class StripeController extends Controller
         $customer_id = $user->stripe_id;
         $coupons = DB::table('coupon_user')
             ->join('coupons', 'coupons.coupon_id', 'coupon_user.coupon_id')
-            ->join('products', 'coupons.applies_to', 'products.stripe_id')
             ->where('coupon_user.customer_id', $customer_id)
             ->get();
         return view('stripe', compact('id', 'status', 'coupons', 'price'));
